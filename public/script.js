@@ -54,14 +54,15 @@ function handleSearch() {
     }
 
     const filteredTalks = talksData.filter(talk => {
-        // Allow searching through categories and titles
+        // Allow searching through categories, titles, and speakers
         const matchesCategory = talk.category && talk.category.some(cat => cat.toLowerCase().includes(searchTerm));
         const matchesTitle = talk.title && talk.title.toLowerCase().includes(searchTerm);
+        const matchesSpeaker = talk.speakers && talk.speakers.some(speaker => speaker.toLowerCase().includes(searchTerm));
         
         // Don't filter out the lunch break unless it doesn't match and other things do
         if (talk.isBreak) return true;
 
-        return matchesCategory || matchesTitle;
+        return matchesCategory || matchesTitle || matchesSpeaker;
     });
 
     renderTalks(filteredTalks);
